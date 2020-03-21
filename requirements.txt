@@ -1,0 +1,5 @@
+pandas==0.25.1
+requests==2.22.0
+beautifulsoup4==4.8.1
+FLASK==1.1.1
+Flask-Assets==2.0
