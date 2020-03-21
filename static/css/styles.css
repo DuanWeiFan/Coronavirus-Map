@@ -1,0 +1,14 @@
+
+.countries {
+    fill: rgb(50, 165, 50);
+    stroke: black;
+    stroke-opacity: 0.2;
+}
+
+.sphere {
+    fill: rgb(111, 160, 220);
+}
+
+.countries:hover {
+    fill: red;
+}

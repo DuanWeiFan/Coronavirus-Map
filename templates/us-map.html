@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="chart" align="center"></div>
+    <div id="table" align="center"></div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/coronavirus-style.css') }}">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <!-- <script src="{{ url_for('static', filename='coronavirus-map.js') }}"></script> -->
+    <!-- <script src="{{ url_for('static', filename='coronavirus.js') }}"></script> -->
+    {% assets "main_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+</body>
+
+</html>

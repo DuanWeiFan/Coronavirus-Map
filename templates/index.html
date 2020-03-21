@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<style>
+    svg rect {
+        fill: orange;
+    }
+
+    svg text {
+        fill:white;
+        font: 10px sans-serif;
+        text-anchor: end;
+    }
+</style>
+<body>
+    <div> </div>
+    <svg class="chart" width="420" height="120">
+        <g transform="translate(0,0)">
+            <rect width="50" height="19"></rect>
+            <text x="47" y="9.5" dy=".35em">5</text>
+        </g>
+        <g transform="translate(0,20)">
+            <rect width="100" height="19"></rect>
+            <text x="97" y="9.5" dy=".35em">10</text>
+        </g>
+        <g transform="translate(0,40)">
+            <rect width="120" height="19"></rect>
+            <text x="117" y="9.5" dy=".35em">12</text>
+        </g>
+    </svg>
+
+    <script>
+        // d3.select("p").style("color", "green");
+        // d3.select("#p2").style("color", "red");
+        // d3.selectAll(".myclass ").style('color','blue');
+        // d3.select("body").append("p").text("Third paragraph.");
+        var data = [100, 123, 200, 300, 400];
+        // for (let i=0; i < data.length; i++) {
+        //     d3.select("body").append("p");
+        //     console.log("append p:" + i);
+        // }
+        var paragraph = d3.select("body")
+                .selectAll("span")
+                .data(data)
+                .enter()
+                .append("span")
+                .style('color', function(d) {
+                     if (d % 2 === 0) {
+                         return "green";
+                     } else {
+                         return "red";
+                     }
+                 })
+                .text(function (d, i) {
+                    console.log("d: " + d);
+                    console.log("i: " + i);
+                    console.log("this: " + this);
+
+                    return d + " ";
+               });
+               var matrix = [
+                        [1, 2, 3, 4],
+                        [5, 6, 7, 8],
+                        [9, 10, 11, 12],
+                        [13, 14, 15, 16]
+                    ];
+
+        var tr = d3.select("body")
+            .append("table")  // adds <table>
+            .selectAll("tr")  // selects all <tr>
+            .data(matrix)      // joins matrix array 
+            .enter()           // create placeholders for each row in the array
+            .append("tr");// create <tr> in each placeholder
+        
+        d3.json("/get-data", function(data) {
+            var tr = d3.select("body")
+                .append("table")
+                .selectAll("tr")
+                .data(data)
+                .enter()
+                .append("tr");
+            tr.selectAll("td")
+                .data(function (d) {
+                    console.log(d)
+                    console.log("abcc")
+                    return [d["Name"],d["Age"]]
+                })
+                .enter()
+                .append("td")
+                .text(function (d) {
+                    console.log("text: " + d)
+                    return d
+                });
+            }, function(error, rows) {
+                console.log(rows);
+        });
+
+        d3.selectAll("div")
+            .on("mouseover", function(){
+                d3.select(this)
+                .style("background-color", "orange");
+
+                // Get current event info
+                console.log(d3.event);
+                
+                // Get x & y co-ordinates
+                console.log(d3.mouse(this));
+            })
+            .on("mouseout", function(){
+                d3.select(this)
+                    .style("background-color", "steelblue")
+            });
+    </script>
+    <style>
+        div {
+            height: 100px;
+            width: 100px;
+            background-color: steelblue;
+            margin:5px;
+        }
+        .myclass{
+            color:'red'
+        }
+    </style>
+</body>
+</html>

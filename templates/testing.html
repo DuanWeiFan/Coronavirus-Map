@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+
+var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+width = 800 - margin.left - margin.right,
+height = 50 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+var circles_data = function (count, y, radius) {
+    var data = [];
+    for (var j = 0; j < count; j++) {
+        data.push({"id": j, "x": j * 2 * radius, "y": y });
+        }
+    return data;
+}
+
+// console.log(circles_data(20, 20, 10));
+
+var create_circles = function (color_func) {
+
+    var svg = d3.select("body").append("svg")
+      .attr("data-margin-right", margin.right)
+      .attr("data-margin-left", margin.left)
+      .attr("data-margin-top", margin.top)
+      .attr("data-margin-bottom", margin.bottom)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    data = circles_data(20, 140, 15);
+
+    x.domain(d3.extent(data, function (d) { return d.x; })).nice();
+    y.domain(d3.extent(data, function (d) { return d.y; })).nice();
+
+    svg.selectAll(".dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 15)
+        .attr("cx", function (d) { return x(d.x); })
+        .attr("cy", function (d) { return y(d.y); })
+        .style("fill", function (d) { return color_func(d.id); });
+}
+
+
+var color = d3.scaleSequential(d3.interpolateOrRd).domain([0, 20]);
+console.log(color.domain());
+// console.log(color.range());
+create_circles(color);
+// var data = [];
+
+// // ----------------------------------------------------
+
+// var color1 = d3.scaleLinear()
+//         .domain([1, 20])
+//         .range(['#d73027', '#1a9850'])
+//         .interpolate(d3.interpolateHcl); //interpolateHsl interpolateHcl interpolateRgb
+
+// d3.select("body").append("h3").html("From red to green - 2 colors interpolation")
+
+// create_circles(color1);
+
+// // ----------------------------------------------------
+// var color2 = d3.scaleLinear()
+//                 .domain([1, 10, 20])
+//                 .range(['#d73027', '#fee08b', '#1a9850'])
+//                 .interpolate(d3.interpolateHcl); //interpolateHsl interpolateHcl interpolateRgb
+
+// d3.select("body").append("h3").html("From red to green - 3 colors interpolation")
+
+// create_circles(color2);
+
+// // ----------------------------------------------------
+// var step = d3.scaleLinear()
+//              .domain([1, 8])
+//              .range([1, 20]);
+
+// var color3= d3.scaleLinear()
+//                 .domain([1, step(2), step(3), step(4), step(5), step(6), step(7), 20])
+//                 .range(['#d73027', '#f46d43', '#fdae61', '#fee08b', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850'])
+//                 .interpolate(d3.interpolateHcl); //interpolateHsl interpolateHcl interpolateRgb
+
+// d3.select("body").append("h3").html("From red to green - 8 colors interpolation")
+
+// create_circles(color3);
+
+// // ----------------------------------------------------
+
+    </script>
+</body>
