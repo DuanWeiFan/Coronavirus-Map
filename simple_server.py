@@ -3,6 +3,7 @@ from flask_assets import Bundle, Environment
 from Web_scrapper_new import Web_scrapper
 import pandas as pd
 import json
+import os
 
 app = Flask(__name__)
 
@@ -47,4 +48,7 @@ def get_coronavirus_data():
     return cache_coronavirus
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = os.getenv('PORT')
+    if not port:
+        port = 5000
+    app.run(debug=False, port=port)
