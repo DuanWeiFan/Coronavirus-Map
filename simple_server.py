@@ -48,7 +48,5 @@ def get_coronavirus_data():
     return cache_coronavirus
 
 if __name__ == '__main__':
-    port = os.getenv('PORT')
-    if not port:
-        port = 5000
-    app.run(debug=False, port=port)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, port=port, host='0.0.0.0')
