@@ -78,8 +78,7 @@ const renderMap = (g, coronavirus, usState, selectedState, state_name_mapping, m
             .text(d => {
                 return `New Cases: ${d.properties.newCase},\n`+
                 `Accumulate Cases: ${d.properties.accumulate},\n`+
-                `Death: ${d.properties.death},\n`+
-                `Cured: ${d.properties.cured}`
+                `Death: ${d.properties.death}`
             });
     renderMapLabel(g, usState, state_name_mapping);
 }
