@@ -24,8 +24,8 @@ class Web_scrapper():
                 'state': tds[0].find_all('span')[1].get_text(),
                 'accumulate': tds[1].find('div').find(text=True, recursive=False),
                 'new': 0,
-                'death': tds[2].find('div').find(text=True, recursive=False),
-                'cured': tds[3].find('div').find(text=True, recursive=False)
+                'death': tds[2].find('div').find(text=True, recursive=False)
+                # 'cured': tds[3].find('div').find(text=True, recursive=False)
             }
             new_case = tds[1].find('div').find('div')
             if new_case:
