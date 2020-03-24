@@ -18,15 +18,18 @@ class Web_scrapper():
     def __scrape(self, soup):
         n_states = 50
         data = []
-        for tr in soup.find('table', class_='state-table').find('tbody').find_all('tr', class_='grey-bg'):
+        for tr in soup.find('table', class_='state-table').find('tbody').find_all('tr'):
+            if tr.has_attr('class') and 'sub' in tr['class']:
+                continue
             tds = tr.find_all('td')
-            d = {
-                'state': tds[0].find_all('span')[1].get_text(),
-                'accumulate': tds[1].find('div').find(text=True, recursive=False),
-                'new': 0,
-                'death': tds[2].find('div').find(text=True, recursive=False)
-                # 'cured': tds[3].find('div').find(text=True, recursive=False)
-            }
+            d = {}
+            for span in tds[0].find_all('span'):
+                if span.has_attr('class') and 'expand' in tr['class']:
+                    continue
+                d['state'] = span.get_text()
+            d['accumulate'] = tds[1].find('div').find(text=True, recursive=False)
+            d['new'] = 0
+            d['death'] = tds[2].find('div').find(text=True, recursive=False)
             new_case = tds[1].find('div').find('div')
             if new_case:
                 d['new'] = new_case.get_text().replace('+','')
